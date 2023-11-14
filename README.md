@@ -1,19 +1,19 @@
 # Focus Restorable TextField
 
-This experimental project suggests workaround for https://issuetracker.google.com/192776771
+This sample suggests workaround for https://issuetracker.google.com/192776771
 
-### Disclaimer
+## Disclaimer
 
-Warning: The workaround implementation presented by this project is not official recommendation of Google.
+Warning: The workaround implementation presented by this project is UNOFFICIAL, EXPERIMENTAL sample.
 
-### Motivation
+# Motivation
 
 Unlike `EditText` in Android Views, `TextField` in Compose doesn’t automatically retain or 
 restore its states as the device goes through configuration changes such as rotating the device 
 between landscape and portrait orientations, folding / unfolding the device, resizing window, 
 switching dark mode, etc.
 
-### What I have done**
+# What I have done
 
 https://github.com/saryongkang/focus-restorable-textfield/assets/978709/6121e199-c4e2-4cb4-b226-34625d09c3d2
 
@@ -29,7 +29,12 @@ To realize this, I...
 - added logic to not view keyboard when a user canceled keyboard by tapping back button or 'search' button
 - added logic to ignore change of focus and keyboard during configuration changes
 
-### Considerations
+# Considerations
 - Need to cache focus flag value during initialization to avoid incorrect modification during initial composition
 - Need to ignore focus changes while the activity is changing configurations
 - Need to work well with multiple `TextField`s
+
+# License
+
+This project is distributed under the terms of the Apache License (Version 2.0). See the
+[license](LICENSE) for more information.
