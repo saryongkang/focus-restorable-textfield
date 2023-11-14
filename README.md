@@ -2,6 +2,10 @@
 
 This project suggests workaround for https://issuetracker.google.com/192776771
 
+### Disclaimer
+
+Warning: The workaround implementation presented by this project is not official recommendation of Google.
+
 ### Motivation
 
 Unlike `EditText` in Android Views, `TextField` in Compose doesn’t automatically retain or 
