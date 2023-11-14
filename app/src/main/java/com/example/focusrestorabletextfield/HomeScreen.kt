@@ -15,6 +15,8 @@ import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.layout.windowInsetsBottomHeight
 import androidx.compose.foundation.layout.windowInsetsTopHeight
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -22,8 +24,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.input.key.Key
+import androidx.compose.ui.input.key.key
+import androidx.compose.ui.input.key.onKeyEvent
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -40,9 +48,9 @@ fun HomeScreen(modifier: Modifier = Modifier) {
             )
         ) {
             Spacer(modifier = Modifier.height(16.dp))
-            TextFieldPanel()
-            Spacer(modifier = Modifier.height(32.dp))
             FocusRestorableTextFieldPanel()
+            Spacer(modifier = Modifier.height(32.dp))
+            TextFieldPanel()
             Spacer(Modifier.windowInsetsBottomHeight(WindowInsets.ime))
         }
 
@@ -55,6 +63,7 @@ fun TextFieldPanel(modifier: Modifier = Modifier) {
     val (text1, setText1) = rememberSaveable { mutableStateOf("") }
     val (text2, setText2) = rememberSaveable { mutableStateOf("") }
     val (text3, setText3) = rememberSaveable { mutableStateOf("") }
+
     Column(
         modifier = modifier
             .padding(horizontal = 16.dp)
@@ -75,15 +84,10 @@ fun TextFieldPanel(modifier: Modifier = Modifier) {
             modifier = Modifier.widthIn(max = 240.dp).fillMaxWidth(),
         )
         Spacer(modifier = Modifier.height(16.dp))
-        TextField(
-            value = text3,
-            onValueChange = setText3,
-            modifier = Modifier.widthIn(max = 240.dp).fillMaxWidth(),
-        )
-        Spacer(modifier = Modifier.height(16.dp))
     }
 }
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun FocusRestorableTextFieldPanel(modifier: Modifier = Modifier) {
     val (text1, setText1) = rememberSaveable(stateSaver = TextFieldValue.Saver) {
@@ -98,6 +102,11 @@ fun FocusRestorableTextFieldPanel(modifier: Modifier = Modifier) {
     val focusRequester1 = remember { FocusRequester() }
     val focusRequester2 = remember { FocusRequester() }
     val focusRequester3 = remember { FocusRequester() }
+    val keyboardController = LocalSoftwareKeyboardController.current
+    val onSearchTriggered = {
+        keyboardController?.hide()
+    }
+
     Column(
         modifier = modifier
             .padding(horizontal = 16.dp)
@@ -130,7 +139,26 @@ fun FocusRestorableTextFieldPanel(modifier: Modifier = Modifier) {
             modifier = Modifier
                 .widthIn(max = 240.dp)
                 .fillMaxWidth()
-                .focusRestorer(focusRequester3, false),
+                .focusRestorer(focusRequester3, false)
+                .onKeyEvent {
+                    if (it.key == Key.Enter) {
+                        onSearchTriggered()
+                        true
+                    } else {
+                        false
+                    }
+                },
+            placeholder = {
+                Text("Search field...")
+            },
+            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
+            keyboardActions = KeyboardActions(
+                onSearch = {
+                    onSearchTriggered()
+                },
+            ),
+            maxLines = 1,
+            singleLine = true,
         )
         Spacer(modifier = Modifier.height(16.dp))
     }
