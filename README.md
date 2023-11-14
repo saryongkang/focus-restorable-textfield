@@ -11,6 +11,8 @@ switching dark mode, etc.
 
 ### What I have done**
 
+https://github.com/saryongkang/focus-restorable-textfield/assets/978709/6121e199-c4e2-4cb4-b226-34625d09c3d2
+
 This project shows how to retain these 4 states:
 - Position of cursor
 - Text selection
