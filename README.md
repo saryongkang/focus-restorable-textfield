@@ -1,6 +1,6 @@
 # Focus Restorable TextField
 
-This project suggests workaround for https://issuetracker.google.com/192776771
+This experimental project suggests workaround for https://issuetracker.google.com/192776771
 
 ### Disclaimer
 
