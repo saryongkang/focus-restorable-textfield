@@ -62,7 +62,6 @@ fun HomeScreen(modifier: Modifier = Modifier) {
 fun TextFieldPanel(modifier: Modifier = Modifier) {
     val (text1, setText1) = rememberSaveable { mutableStateOf("") }
     val (text2, setText2) = rememberSaveable { mutableStateOf("") }
-    val (text3, setText3) = rememberSaveable { mutableStateOf("") }
 
     Column(
         modifier = modifier
