@@ -47,6 +47,7 @@ import androidx.compose.ui.input.key.Key
 import androidx.compose.ui.input.key.key
 import androidx.compose.ui.input.key.onKeyEvent
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
@@ -136,7 +137,9 @@ fun FocusRestorableTextFieldPanel(modifier: Modifier = Modifier) {
             modifier = Modifier
                 .widthIn(max = 240.dp)
                 .fillMaxWidth()
-                .focusRestorer(focusRequester1),
+                .focusRestorer(focusRequester1)
+                .testTag("FocusRestorableTextField1")
+            ,
         )
         Spacer(modifier = Modifier.height(16.dp))
         TextField(
@@ -145,7 +148,9 @@ fun FocusRestorableTextFieldPanel(modifier: Modifier = Modifier) {
             modifier = Modifier
                 .widthIn(max = 240.dp)
                 .fillMaxWidth()
-                .focusRestorer(focusRequester2, false),
+                .focusRestorer(focusRequester2, false)
+                .testTag("FocusRestorableTextField2")
+            ,
         )
         Spacer(modifier = Modifier.height(16.dp))
         TextField(
@@ -162,7 +167,9 @@ fun FocusRestorableTextFieldPanel(modifier: Modifier = Modifier) {
                     } else {
                         false
                     }
-                },
+                }
+                .testTag("FocusRestorableTextField3")
+            ,
             placeholder = {
                 Text("Search field...")
             },
